@@ -4,13 +4,52 @@ parent_path = os.path.dirname(sys.path[0])
 if parent_path not in sys.path:
     sys.path.append(parent_path)
 
-from models.Moss import MossAPI
-from models.Chatflow import ChatflowAPI
-
 from bench_function import get_api_key, export_distribute_json, export_union_json
 import os
 import json
 import time
+
+class ChatflowAPI:
+    def __init__(self, api_key_list):
+        self.api_key_list = api_key_list
+        self.api_url = "http://127.0.0.1:8888/chat"
+        
+
+    def send_request(self, api_key, request:str, context=None):
+
+        self.headers = {
+            "Content-Type": "application/json"
+        }
+        data = {
+                "question": request
+        }
+
+        if context:
+            data["context"] = context
+
+        response = requests.post(self.api_url, headers=self.headers, json=data)
+        return response.json()
+
+    def forward(self, request_text:str):
+        """
+        """
+        
+
+        while True:
+            try:
+                response = self.send_request("api_key", request_text)
+                if 'answer' in response.keys():
+                    response = response['answer'][0]
+                    break
+
+            except Exception as e:
+                print('Exception:', e)
+                time.sleep(4)
+ 
+        return response
+
+    def __call__(self, prompt, question):
+        return self.forward(request_text=prompt+question)
 
 
 if __name__ == "__main__":
