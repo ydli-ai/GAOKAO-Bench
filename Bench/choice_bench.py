@@ -8,6 +8,9 @@ from bench_function import get_api_key, export_distribute_json, export_union_jso
 import os
 import json
 import time
+import requests
+from random import choice
+
 
 class ChatflowAPI:
     def __init__(self, api_key_list):
