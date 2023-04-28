@@ -6,7 +6,7 @@ import time
 
 
 class ChatflowAPI:
-    def __init__(self, api_key_list: list[str]):
+    def __init__(self, api_key_list):
         self.api_key_list = api_key_list
         self.api_url = "http://127.0.0.1:8888/chat"
         
@@ -56,7 +56,7 @@ def test(moss_api, prompt:str, question:str):
 
 if __name__ == "__main__":
     api_key_list = ["moss_api_key"]
-    moss_api = ChatflowAPI(api_key_list)
+    model_api = ChatflowAPI(api_key_list)
  
     data_example = {
             "year": "2010",
