@@ -5,7 +5,7 @@ if parent_path not in sys.path:
     sys.path.append(parent_path)
 
 from models.Moss import MossAPI
-from models.Openai import OpenaiAPI
+from models.Chatflow import ChatflowAPI
 
 from bench_function import get_api_key, export_distribute_json, export_union_json
 import os
@@ -24,13 +24,13 @@ for i in range(len(data)):
     directory = "../data/Multiple-choice_Questions"
 
     # get the api_key_list
-    openai_api_key_file = "your openai api key list"
-    openai_api_key_list = get_api_key(openai_api_key_file, start_num=0, end_num=1)
+    #openai_api_key_file = "your openai api key list"
+    #openai_api_key_list = get_api_key(openai_api_key_file, start_num=0, end_num=1)
     # moss_api_key_list = [""]
     
     # get the model_name and instantiate model_api
-    model_name = 'gpt-3.5-turbo'
-    model_api = OpenaiAPI(openai_api_key_list, model_name='gpt-3.5-turbo')
+    model_name = 'chatflow-13b'
+    model_api = ChatflowAPI("")
     # model_name = 'moss'
     # model_api = MossAPI(moss_api_key_list)
 
