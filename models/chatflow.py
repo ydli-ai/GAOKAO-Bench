@@ -35,7 +35,7 @@ class ChatflowAPI:
             try:
                 response = self.send_request("api_key", request_text)
                 if 'answer' in response.keys():
-                    response = response['answer']
+                    response = response['answer'][0]
                     break
 
             except Exception as e:
