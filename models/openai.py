@@ -2,7 +2,7 @@ import requests
 import time
 import openai
 from random import choice
-
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 class  OpenaiAPI:
     def __init__(self, api_key_list:list[str], model_name:str="gpt-3.5-turbo", temperature:float=0.3, max_tokens: int=1024):
@@ -11,66 +11,20 @@ class  OpenaiAPI:
         self.temperature = temperature
         self.max_tokens = max_tokens
 
-    def send_request_davinci(self, request_text:str)->str:
-        """
-        """
-        output = {}
+        self.model = AutoModelForCausalLM.from_pretrained("../../TencentPretrain/models/llama_ext/LLaMA-2-7b_v2", device_map="cuda:0", torch_dtype=torch.float16, trust_remote_code=True)
+        self.tokenizer = AutoTokenizer.from_pretrained("../../TencentPretrain/models/llama_ext/LLaMA-2-7b_v2", use_fast=False, trust_remote_code=True)
 
-        while True:
-            try:
-                openai.api_key = choice(self.api_key_list)
-                output = openai.Completion.create(
-                        model=self.model_name,
-                        prompt=request_text,
-                        temperature=self.temperature,
-                        max_tokens = self.max_tokens
-                    )
-                break
-            except Exception as e:
-                print('Exception:', e)
-                time.sleep(1)
-                
-        time.sleep(1)
-        return output
-    
-    def send_request_turbo(self, prompt, question):
-        """
-        """
-        zero_shot_prompt_message = {'role': 'system', 'content': prompt}
-            
-        messages = [zero_shot_prompt_message]
-        message = {"role":"user", "content":question}
-        messages.append(message)
-
-        output = {}
-        while True:
-            try:
-                openai.api_key = choice(self.api_key_list)
-                output = openai.ChatCompletion.create(
-                    model=self.model_name,
-                    messages=messages,
-                    temperature=self.temperature
-                )
-                break
-            except Exception as e:
-                print('Exception:', e)
-                time.sleep(1)
-                
-        time.sleep(1)
-
-        return output
 
     def forward(self, prompt, question)->str:
         """
         """
-        if self.model_name == "gpt-3.5-turbo":
-            output = self.send_request_turbo(prompt, question)
-        elif self.model_name == "text-davinci-003":
-            output = self.send_request_davinci(prompt+question)
+        prompt = f"### Instruction:{prompt + question}  ### Response:"
+        inputs = self.tokenizer(prompt, return_tensors="pt").to("cuda:0")
+        generate_ids = self.model.generate(inputs.input_ids, do_sample=True, max_new_tokens=2048, top_k=10, top_p=0.85, temperature=1, repetition_penalty=1.15, eos_token_id=2, bos_token_id=1, pad_token_id=0)
+        response = self.tokenizer.batch_decode(generate_ids, skip_special_tokens=True, clean_up_tokenization_spaces=False)[0]
+        response = response.lstrip(prompt)
 
-        model_output = self.postprocess(output)
-
-        return model_output
+        return response
     
     def postprocess(self, output):
         """
