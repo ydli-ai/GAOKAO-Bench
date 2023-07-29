@@ -96,8 +96,10 @@ if __name__ == '__main__':
                 beginning_length = len(src)
 
                 src_tensor, seg_tensor = torch.LongTensor([src]).to(device), torch.LongTensor([seg]).to(device)
-
-                output = model(src_tensor)
+                try:
+                    output = model(src_tensor)
+                except:
+                    continue
                 print(output[0][0][-1].size())
 
                 next_token_logits = F.softmax(output[0][0][-1])
