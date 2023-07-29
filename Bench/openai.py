@@ -20,8 +20,8 @@ class  OpenaiAPI:
         """
         """
         prompt = f"### Instruction:{prompt + question}  ### Response:"
-        if len(prompt) > 1024:
-            prompt = prompt[-1024:]
+        if len(prompt) > 768:
+            prompt = prompt[-768:]
         inputs = self.tokenizer(prompt, return_tensors="pt").to("cuda:0")
         generate_ids = self.model.generate(inputs.input_ids, do_sample=True, max_new_tokens=128, top_k=10, top_p=0.85, temperature=1, repetition_penalty=1.15, eos_token_id=2, bos_token_id=1, pad_token_id=0)
         response = self.tokenizer.batch_decode(generate_ids, skip_special_tokens=True, clean_up_tokenization_spaces=False)[0]
