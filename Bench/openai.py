@@ -2,6 +2,7 @@ import requests
 import time
 import openai
 from random import choice
+import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 class  OpenaiAPI:
