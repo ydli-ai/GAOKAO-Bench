@@ -5,7 +5,7 @@ from random import choice
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 class  OpenaiAPI:
-    def __init__(self, api_key_list:list[str], model_name:str="gpt-3.5-turbo", temperature:float=0.3, max_tokens: int=1024):
+    def __init__(self, api_key_list, model_name="gpt-3.5-turbo", temperature=0.3, max_tokens=1024):
         self.api_key_list = api_key_list
         self.model_name = model_name
         self.temperature = temperature
