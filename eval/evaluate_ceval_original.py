@@ -97,9 +97,9 @@ if __name__ == '__main__':
                 src_tensor, seg_tensor = torch.LongTensor([src]).to(device), torch.LongTensor([seg]).to(device)
 
                 output = model(src_tensor)
-                print(output[0][-1].size())
+                print(output[0][0][-1].size())
 
-                next_token_logits = F.softmax(output[0][-1])
+                next_token_logits = F.softmax(output[0][0][-1])
 
                 print(next_token_logits.size())
 
