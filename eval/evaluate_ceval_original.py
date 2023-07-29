@@ -33,7 +33,7 @@ if __name__ == '__main__':
 
     model = AutoModelForCausalLM.from_pretrained("../../TencentPretrain/models/llama_ext/LLaMA-2-7b_v2", device_map="cuda:0", torch_dtype=torch.float16, trust_remote_code=True)
     tokenizer = AutoTokenizer.from_pretrained("../../TencentPretrain/models/llama_ext/LLaMA-2-7b_v2", use_fast=False, trust_remote_code=True)
-
+    args.tokenizer = tokenizer
 
     t_right, t_wrong, t_no_answer = 0, 0, 0
     right, wrong, no_answer = 0, 0, 0
