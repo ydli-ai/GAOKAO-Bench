@@ -71,11 +71,39 @@ The format of the model output is as follows:
 
 ## Our Result
 
-We have counted the Gaokao scores of gpt-3.5-turbo in previous years:
+We have counted the Gaokao scores of gpt-3.5-turbo in previous years. Among them, GAOGAO-A represents science subjects, and GAOKAO-B represents liberal arts subjects:
+
+**Note: gpt-3.5-turbo is version 2023.4.10, and all gpt-3.5-turbo results below are for this version**
 
 ![](./img/score_rate_objective.png)
 ![](./img/score_rate_subjective.png)
 ![](./img/score_of_previous_year.png)
+
+We also tested how well the open-source model scored on multiple-choice questions. The Objective_total_score refers to $\sum {the\ scoring\ rate\ of\ multiple-choice\ questions\ for\ a\ certain\ subject}\times{the\ total\ score\ of\ the\ certain\ subject}$
+
+The science subjects of the college entrance examination(GAOKAO_A) include Chinese, English, science mathematics, physics, chemistry, and biology; 
+
+The liberal arts subjects of the college entrance examination(GAOKAO_B) include Chinese, English, liberal arts mathematics, politics, history and geography. 
+
+The total score of GAOKAO_A_Objective_total_score and GAOKAO_B_Objective_total_score are both 750 points.
+
+
+|                       | GAOKAO_A_Objective_total_score (高考理科选择题总分) | GAOKAO_B_Objective_total_score (高考文科选择题总分) | GAOKAO_Fill-in-the-blank_Questions (高考填空题) | GAOKAO_Open-ended_Questions (高考主观题) |
+| --------------------- | --------------------------------------------------- | --------------------------------------------------- | ----------------------------------------------- | ---------------------------------------- |
+| **gpt-3.5-turbo**     | 364                                                 | 398                                                 |                                                 |                                          |
+| **Chatglm_6b**        | 158                                                 | 231                                                 |                                                 |                                          |
+| **Vicuna_7b**         | 136                                                 | 150                                                 |                                                 |                                          |
+| **Vicuna_13b**        | 116                                                 | 156                                                 |                                                 |                                          |
+| **Firefly_2b6**       | 136                                                 | 145                                                 |                                                 |                                          |
+| **Belle_7b_m2**       | 118                                                 | 141                                                 |                                                 |                                          |
+| **Baize_v2_13b**      | 115                                                 | 137                                                 |                                                 |                                          |
+| **Moss_moon_003_sft** | 124                                                 | 128                                                 |                                                 |                                          |
+| **Firefly_1b4**       | 100                                                 | 117                                                 |                                                 |                                          |
+
+
+
+![](./img/GAOKAO-BENCH-Objective-Questions.png)
+
 
 ## Evaluation
 
