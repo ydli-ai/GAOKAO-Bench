@@ -100,6 +100,8 @@ if __name__ == '__main__':
 
                 next_token_logits = F.softmax(output[0][-1])
 
+                print(next_token_logits.size())
+
                 a_prob = next_token_logits[319]
                 b_prob = next_token_logits[350]
                 c_prob = next_token_logits[315]
