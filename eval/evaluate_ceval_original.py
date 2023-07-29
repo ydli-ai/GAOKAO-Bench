@@ -21,6 +21,7 @@ if __name__ == '__main__':
     parser.add_argument("--shots", type=int, default=1)
     parser.add_argument("--sft", action="store_true")
     parser.add_argument("--prediction_path", type=str, default="output.ceval")
+    parser.add_argument("--model_path", type=str, default="output.ceval")
 
     args = parser.parse_args()
 
@@ -31,8 +32,8 @@ if __name__ == '__main__':
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    model = AutoModelForCausalLM.from_pretrained("../../TencentPretrain/models/llama_ext/LLaMA-2-7b_v2", device_map="cuda:0", torch_dtype=torch.float16, trust_remote_code=True)
-    tokenizer = AutoTokenizer.from_pretrained("../../TencentPretrain/models/llama_ext/LLaMA-2-7b_v2", use_fast=False, trust_remote_code=True)
+    model = AutoModelForCausalLM.from_pretrained(args.model_path, device_map="cuda:0", torch_dtype=torch.float16, trust_remote_code=True)
+    tokenizer = AutoTokenizer.from_pretrained(args.model_path, use_fast=False, trust_remote_code=True)
     args.tokenizer = tokenizer
 
     t_right, t_wrong, t_no_answer = 0, 0, 0
