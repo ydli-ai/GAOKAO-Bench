@@ -20,7 +20,7 @@ if __name__ == '__main__':
     parser.add_argument("--world_size", type=int, default=1)
     parser.add_argument("--shots", type=int, default=1)
     parser.add_argument("--sft", action="store_true")
-
+    parser.add_argument("--prediction_path", type=str, default="output.ceval")
 
     args = parser.parse_args()
 
