@@ -42,12 +42,12 @@ if __name__ == '__main__':
     import pandas as pd
 
     with open(args.prediction_path, 'w') as fw:
-        for file in os.listdir('../../falcon/cmmlu/dev'):
+        for file in os.listdir('../../../falcon/cmmlu/dev'):
             fw.write(file + '\t')
             questions = []
 
 
-            df = pd.read_csv('../../falcon/cmmlu/dev/' + file)
+            df = pd.read_csv('../../../falcon/cmmlu/dev/' + file)
             prefix_list = []
             for index, row in df.iterrows():
 
@@ -61,7 +61,7 @@ if __name__ == '__main__':
                 prefix_list.append(prefix)
 
 
-            df = pd.read_csv('../../falcon/cmmlu/test/'+file)
+            df = pd.read_csv('../../../falcon/cmmlu/test/'+file)
             for index, row in df.iterrows():
 
                 prompt = row['Question']

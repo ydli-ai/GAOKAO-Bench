@@ -42,11 +42,11 @@ if __name__ == '__main__':
     import pandas as pd
 
     with open(args.prediction_path, 'w') as fw:
-        for file in os.listdir('../../falcon/mmlu/data/val'):
+        for file in os.listdir('../../../falcon/mmlu/data/val'):
             fw.write(file + '\t')
             questions = []
             test_file = "_".join(file.split('_')[:-1]) + '_test.csv'
-            df = pd.read_csv('../../falcon/mmlu/data/val/'+file, names=["question", "A", "B", "C", "D", "answer"], header=None)
+            df = pd.read_csv('../../../falcon/mmlu/data/val/'+file, names=["question", "A", "B", "C", "D", "answer"], header=None)
             prefix_list = []
             for index, row in df.iterrows():
                 question = "Question: " + row['question']
@@ -58,7 +58,7 @@ if __name__ == '__main__':
 
                 prefix_list.append(prefix)
 
-            df = pd.read_csv('../../falcon/mmlu/data/test/'+test_file, names=["question", "A", "B", "C", "D", "answer"], header=None)
+            df = pd.read_csv('../../../falcon/mmlu/data/test/'+test_file, names=["question", "A", "B", "C", "D", "answer"], header=None)
             for index, row in df.iterrows():
 
                 question = "Question: " + row['question']

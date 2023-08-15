@@ -42,12 +42,12 @@ if __name__ == '__main__':
     import pandas as pd
 
     with open(args.prediction_path, 'w') as fw:
-        for file in os.listdir('../../falcon/gaokao/test'):
+        for file in os.listdir('../../../falcon/gaokao/test'):
             fw.write(file + '\t')
             questions = []
             dev_file = "_".join(file.split('_')[:-1]) + '_dev.tsv'
 
-            f = open('../../falcon/gaokao/dev/'+dev_file)
+            f = open('../../../falcon/gaokao/dev/'+dev_file)
             lines = f.readlines()
             prefix_list = []
             for l in lines:
@@ -59,7 +59,7 @@ if __name__ == '__main__':
                 prefix_list.append(prefix)
 
 
-            f = open('../../falcon/gaokao/test/'+file)
+            f = open('../../../falcon/gaokao/test/'+file)
             lines = f.readlines()
             for l in lines:
                 question, answer = l.strip().split('\t')
